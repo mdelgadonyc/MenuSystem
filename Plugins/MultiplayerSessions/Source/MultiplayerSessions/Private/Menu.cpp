@@ -4,6 +4,7 @@
 #include "Menu.h"
 #include "Components/Button.h"
 #include "MultiplayerSessionsSubsystem.h"
+#include "OnlineSessionSettings.h"
 
 void UMenu::MenuSetup(int32 NumberOfPublicConnections, FString TypeOfMatch)
 {
@@ -36,6 +37,10 @@ void UMenu::MenuSetup(int32 NumberOfPublicConnections, FString TypeOfMatch)
     if (MultiplayerSessionsSubsystem)
     {
         MultiplayerSessionsSubsystem->MultiplayerOnCreateSessionComplete.AddDynamic(this, &UMenu::OnCreateSession);
+        MultiplayerSessionsSubsystem->MultiplayerOnFindSessionsComplete.AddUObject(this, &UMenu::OnFindSessions);
+        MultiplayerSessionsSubsystem->MultiplayerOnJoinSessionComplete.AddUObject(this, &UMenu::OnJoinSession);
+        MultiplayerSessionsSubsystem->MultiplayerOnStartSessionComplete.AddDynamic(this, &UMenu::OnStartSession);
+        MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.AddDynamic(this, &UMenu::OnDestroySession);
     }
 }
 
@@ -91,6 +96,23 @@ void UMenu::OnCreateSession(bool bWasSuccessful)
             }
         }
     }
+}
+
+void OnFindSessions(const TArray<FOnlineSessionSearchResult>& SessionResult, bool bWasSuccessful)
+{
+
+}
+void OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
+{
+
+}
+void OnStartSession(bool bWasSuccessful)
+{
+
+}
+void OnDestroySession(bool bWasSuccessful)
+{
+
 }
 
 void UMenu::HostButtonClicked()
